@@ -51,17 +51,20 @@ void Player::GetMoveInput(const sf::RenderWindow &window)
         movement.y += speed * direction;
     }
 
-    SpaceShip::Move(movement, shape, window);
+    Move(movement, shape, window);
 }
 
-void Player::GetShootInput(sf::RenderWindow &window)
+void Player::GetShootInput()
 {
     // Gestion des tirs du joueur
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         std::cout << "Tir du joueur" << std::endl;
-        weapon->Shoot(shape.getPosition(), sf::Vector2f(0.0f, -1.0f), window);
-    }    
+        if (weapon)
+        {
+            weapon->Shoot(shape.getPosition(), sf::Vector2f(0.0f, -1.0f));
+        }
+    }
 }
 
 void Player::Display(sf::RenderWindow &window)

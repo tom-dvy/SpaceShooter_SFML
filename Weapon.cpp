@@ -1,28 +1,39 @@
 #include "Weapon.h"
-#include <SFML/Graphics.hpp>
 
-Weapon::Weapon() : damage(1), munition(10)
-{
-    name[0] = '\0';
-}
+Weapon::Weapon(int dmg, int mun) : damage(dmg), munition(mun) {}
 
-void Weapon::Shoot(sf::Vector2f position, sf::Vector2f direction, sf::RenderWindow& window)
+void Weapon::Shoot(const sf::Vector2f& position, const sf::Vector2f& direction)
 {
     if (munition > 0)
     {
-        Projectiles projectile;
-        projectile.SpawnProjectile(position, window);
-        
+        projectiles.emplace_back(position, direction);
         munition--;
     }
-    if (munition = 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+}
+
+void Weapon::UpdateProjectiles(float dt, sf::RenderWindow& window)
+{
+    for (auto it = projectiles.begin(); it != projectiles.end(); )
     {
-        Reload();
+        it->Update(dt);
+        if (it->IsOffScreen(window))
+        {
+            it = projectiles.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
     }
-    
 }
 
 void Weapon::Reload()
 {
-    munition = 10;
+    
+}
+
+void Weapon::DrawProjectiles(sf::RenderWindow& window) const
+{
+    for (const auto& proj : projectiles)
+        proj.Draw(window);
 }

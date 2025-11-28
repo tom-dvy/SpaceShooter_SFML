@@ -1,10 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
-#include "Player.h"
 #include <iostream>
-#include <windows.h>
 
 Game::Game()
+{
+}
+
+Game::~Game()
 {
 }
 
@@ -14,6 +16,7 @@ void Game::Start()
     window.setFramerateLimit(60);
 
     Player player;
+    float deltaTime = 1.0f / 60.0f;
 
     while (window.isOpen())
     {
@@ -28,7 +31,10 @@ void Game::Start()
         player.GetMoveInput(window);
 
         // Tirs du joueur
-        player.GetShootInput(window);
+        player.GetShootInput();
+        player.weapon->UpdateProjectiles(deltaTime, window);
+
+        player.weapon->DrawProjectiles(window);
 
         // Affichage de l'écran
         window.clear(sf::Color::Black);
@@ -43,7 +49,6 @@ void Game::NextLevel()
 
 void Game::Respawn()
 {
-    
 }
 
 void Game::IsGameOver()

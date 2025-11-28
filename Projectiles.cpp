@@ -1,17 +1,25 @@
-#include <SFML/Graphics.hpp>
 #include "Projectiles.h"
-#include <iostream>
 
-Projectiles::Projectiles() : speed(400), fromPlayer(true), damage(1)
+Projectile::Projectile(const sf::Vector2f& pos, const sf::Vector2f& dir, float speed) : direction(dir), speed(speed)
 {
+    shape.setSize({10.f, 30.f});
+    shape.setFillColor(sf::Color::Blue);
+    shape.setOrigin(shape.getSize() / 2.0f);
+    shape.setPosition(pos);
 }
 
-void Projectiles::SpawnProjectile(sf::Vector2f position, sf::RenderWindow& window)
+void Projectile::Update(float dt)
 {
-    projectileShape.setSize(sf::Vector2f(10.0f, 30.0f));
-    projectileShape.setFillColor(sf::Color::Blue);
-    projectileShape.setOrigin(projectileShape.getSize() / 2.0f);
-    projectileShape.setPosition(position);
+    shape.move(direction * speed * dt);
+}
 
-    window.draw(projectileShape);
+void Projectile::Draw(sf::RenderWindow& window) const
+{
+    window.draw(shape);
+}
+
+bool Projectile::IsOffScreen(const sf::RenderWindow& window) const
+{
+    sf::Vector2f pos = shape.getPosition();
+    return pos.y < 0 || pos.y > window.getSize().y || pos.x < 0 || pos.x > window.getSize().x;
 }

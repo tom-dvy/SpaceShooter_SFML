@@ -1,25 +1,21 @@
-#ifndef PROJECTILES_H
-#define PROJECTILES_H
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
 
 #include <SFML/Graphics.hpp>
-#include "Player.h"
-#include "Enemy.h"
-#include "SpaceShip.h"
-#include <windows.h>
-#include <iostream>
-#include <vector>
 
-class Projectiles
+class Projectile
 {
 public:
-    Projectiles();
-    void SpawnProjectile(sf::Vector2f position, sf::RenderWindow& window);
-    sf::RectangleShape projectileShape;
+    Projectile(const sf::Vector2f& pos, const sf::Vector2f& dir, float speed = 400.f);
+
+    void Update(float dt);
+    void Draw(sf::RenderWindow& window) const;
+    bool IsOffScreen(const sf::RenderWindow& window) const;
 
 private:
-    int speed;
-    bool fromPlayer;
-    int damage;
+    sf::RectangleShape shape;
+    sf::Vector2f direction;
+    float speed;
 };
 
-#endif // PROJECTILES_H
+#endif // PROJECTILE_H

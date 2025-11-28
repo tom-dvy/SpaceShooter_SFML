@@ -5,27 +5,24 @@
 #include <windows.h>
 #include <iostream>
 #include <vector>
+#include "Player.h"
+#include "Projectiles.h"
 
 class Game
 {
 public:
     Game();
+    ~Game();
     void Start();
     void NextLevel();
     void Respawn();
     void IsGameOver();
 
-    struct  Level
-    {
-        int levelID;
-        int enemyCount;
-        float enemySpeed;
-    };
-
 private:
     int score;
     int wave;
     int playerLives;
+    std::vector<Projectile> projectiles;
 };
 
 #endif // GAME_H

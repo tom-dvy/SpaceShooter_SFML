@@ -3,22 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include "SpaceShip.h"
-#include <windows.h>
 #include <iostream>
-#include <vector>
 
 class Player : public SpaceShip
 {
 public:
     Player();
+    ~Player() override = default;
+
     void SetScore(int score);
     void GetMoveInput(const sf::RenderWindow& window);
-    void GetShootInput(sf::RenderWindow& window);
+    void GetShootInput();
     void Display(sf::RenderWindow& window);
 private:
     int score;
     sf::RectangleShape shape;
     float speed;
 };
-
 #endif // PLAYER_H

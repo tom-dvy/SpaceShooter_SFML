@@ -4,6 +4,10 @@ SpaceShip::SpaceShip() : life(3), speed(200), position(0.f, 0.f), weapon(nullptr
 {
 }
 
+SpaceShip::~SpaceShip()
+{
+}
+
 void SpaceShip::GetStats()
 {
     std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon << std::endl;
@@ -18,7 +22,7 @@ void SpaceShip::TakeDamage(int damage)
     }
 }
 
-void SpaceShip::Move(sf::Vector2f direction, sf::RectangleShape& shape, const sf::RenderWindow& window)
+void SpaceShip::Move(const sf::Vector2f& direction, sf::RectangleShape& shape, const sf::RenderWindow& window)
 {
 	position += direction;
 
