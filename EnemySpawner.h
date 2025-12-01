@@ -10,9 +10,9 @@ class EnemySpawner
 {
 public:
     EnemySpawner();
-    void SpawnEnemies(int count, float speed);
+    void SpawnEnemies(int nbEnemies, sf::RenderWindow &window);
 private:
-    int nbEnemies;
+    sf::RectangleShape enemy;
     sf::Vector2f positions;
 };
 

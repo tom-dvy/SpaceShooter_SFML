@@ -16,6 +16,7 @@ void Game::Start()
     window.setFramerateLimit(60);
 
     Player player;
+    Enemy enemy;
     float deltaTime = 1.0f / 60.0f;
 
     while (window.isOpen())
@@ -42,6 +43,9 @@ void Game::Start()
         // Dessiner projectiles et joueur
         player.weapon->DrawProjectiles(window);
         player.Display(window);
+        
+        enemy.Display(window);
+
         window.display();
     }
 }
