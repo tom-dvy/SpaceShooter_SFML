@@ -32,12 +32,15 @@ void Game::Start()
 
         // Tirs du joueur
         player.GetShootInput();
+        
+        // Mettre à jour la position des projectiles
         player.weapon->UpdateProjectiles(deltaTime, window);
-
-        player.weapon->DrawProjectiles(window);
 
         // Affichage de l'écran
         window.clear(sf::Color::Black);
+
+        // Dessiner projectiles et joueur
+        player.weapon->DrawProjectiles(window);
         player.Display(window);
         window.display();
     }
