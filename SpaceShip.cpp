@@ -18,7 +18,7 @@ void SpaceShip::GetStats()
     std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon << std::endl;
 }
 
-void SpaceShip::TakeDamage(int damage)
+void SpaceShip::TakeDamage(int damage, sf::RectangleShape& shape)
 {
     life -= damage;
 	if (life < 0)
@@ -60,11 +60,9 @@ void SpaceShip::Move(const sf::Vector2f& direction, sf::RectangleShape& shape, c
 
 bool SpaceShip::IsDead() const
 {  
+    if (life <= 0)   
+    {
+        std::cout << "Mort" << std::endl;
+    }
     return life <= 0;
-    
-}
-
-void SpaceShip::MoveShape(sf::RectangleShape& shape, const sf::Vector2f& dir)
-{
-    shape.move(dir);
 }

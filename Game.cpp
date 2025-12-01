@@ -42,10 +42,11 @@ void Game::Start()
 
         for (auto &enemy : enemies)
         {
-            enemy.AiMove();
+            enemy.AiMove(window);
             enemy.AiShoot();
         }
 
+        // Gestion des collisions et dégats
         for (auto &projectile : player.weapon->GetProjectiles())
         {
             for (auto &enemy : enemies)
@@ -61,6 +62,7 @@ void Game::Start()
         // Supprimer les projectiles marqués
         player.weapon->UpdateProjectiles(deltaTime, window);
 
+        // Mort d'un ennemi
         enemies.erase(
             std::remove_if(enemies.begin(), enemies.end(),
                            [](const Enemy &e)
@@ -70,7 +72,7 @@ void Game::Start()
         // Affichage de l'écran
         window.clear(sf::Color::Black);
 
-        // Dessiner projectiles et joueur
+        // Dessiner projectiles ennemis et joueur
         player.weapon->DrawProjectiles(window);
         player.Display(window);
 

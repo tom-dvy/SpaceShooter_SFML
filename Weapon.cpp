@@ -17,7 +17,7 @@ void Weapon::Shoot(const sf::Vector2f &position, const sf::Vector2f &direction)
         projectiles.emplace_back(position, direction);
         munition--;
         shootClock.restart();
-        std::cout << "Tir du joueur" << std::endl;
+        std::cout << "Piuuu Piuuu" << std::endl;
     }
 }
 
@@ -41,6 +41,7 @@ void Weapon::UpdateProjectiles(float dt, sf::RenderWindow& window)
 void Weapon::Reload()
 {
     munition = 10;
+    std::cout << "Rechargement de 10 munitions" << std::endl;
 }
 
 void Weapon::DrawProjectiles(sf::RenderWindow &window) const

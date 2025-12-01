@@ -9,7 +9,7 @@ Player::Player()
 
     shape.setSize(sf::Vector2f(50.f, 30.f));
     shape.setFillColor(sf::Color::Green);
-    shape.setOrigin(shape.getSize() / 2.f);
+    shape.setOrigin(shape.getSize() / 2.0f);
     shape.setPosition(500.f, 700.f);
 
     SpaceShip::GetStats();

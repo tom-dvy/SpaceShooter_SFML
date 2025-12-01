@@ -11,10 +11,9 @@ public:
     SpaceShip();
     virtual ~SpaceShip();
     void GetStats();
-    void TakeDamage(int damage);
+    void TakeDamage(int damage, sf::RectangleShape& shape);
     void Move(const sf::Vector2f& direction, sf::RectangleShape& shape, const sf::RenderWindow& window);
     bool IsDead() const;
-    void MoveShape(sf::RectangleShape& shape, const sf::Vector2f& dir);
 
     Weapon* weapon;
 
