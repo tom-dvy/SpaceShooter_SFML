@@ -4,6 +4,10 @@
 
 Game::Game()
 {
+    for (int i = 0; i < nbEnemies; i++)
+    {
+        enemies.push_back(Enemy());
+    }
 }
 
 Game::~Game()
@@ -16,7 +20,6 @@ void Game::Start()
     window.setFramerateLimit(60);
 
     Player player;
-    Enemy enemy;
     float deltaTime = 1.0f / 60.0f;
 
     while (window.isOpen())
@@ -33,9 +36,36 @@ void Game::Start()
 
         // Tirs du joueur
         player.GetShootInput();
-        
+
         // Mettre à jour la position des projectiles
         player.weapon->UpdateProjectiles(deltaTime, window);
+
+        for (auto &enemy : enemies)
+        {
+            enemy.AiMove();
+            enemy.AiShoot();
+        }
+
+        for (auto &projectile : player.weapon->GetProjectiles())
+        {
+            for (auto &enemy : enemies)
+            {
+                if (projectile.GetShape().getGlobalBounds().intersects(enemy.shape.getGlobalBounds()))
+                {
+                    enemy.TakeDamage(1);
+                    projectile.toDelete = true;
+                }
+            }
+        }
+
+        // Supprimer les projectiles marqués
+        player.weapon->UpdateProjectiles(deltaTime, window);
+
+        enemies.erase(
+            std::remove_if(enemies.begin(), enemies.end(),
+                           [](const Enemy &e)
+                           { return e.IsDead(); }),
+            enemies.end());
 
         // Affichage de l'écran
         window.clear(sf::Color::Black);
@@ -43,8 +73,11 @@ void Game::Start()
         // Dessiner projectiles et joueur
         player.weapon->DrawProjectiles(window);
         player.Display(window);
-        
-        enemy.Display(window);
+
+        for (auto &enemy : enemies)
+        {
+            enemy.Display(window);
+        }
 
         window.display();
     }

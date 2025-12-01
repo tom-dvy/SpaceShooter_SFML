@@ -13,7 +13,8 @@ public:
 
     void Shoot(const sf::Vector2f& position, const sf::Vector2f& direction);
     void UpdateProjectiles(float dt, sf::RenderWindow& window);
-    const std::vector<Projectile>& GetProjectiles() const { return projectiles; }
+    const std::vector<Projectile>& GetProjectiles() const { return projectiles; };
+    std::vector<Projectile>& GetProjectiles() { return projectiles; };
     void Reload();
     void DrawProjectiles(sf::RenderWindow& window) const;
 

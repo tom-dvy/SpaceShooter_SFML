@@ -6,7 +6,7 @@ Weapon::Weapon(int dmg, int mun, float shootCooldown)
 {
 }
 
-void Weapon::Shoot(const sf::Vector2f& position, const sf::Vector2f& direction)
+void Weapon::Shoot(const sf::Vector2f &position, const sf::Vector2f &direction)
 {
     float elapsed = shootClock.getElapsedTime().asSeconds();
     if (elapsed < shootCooldown)
@@ -26,7 +26,8 @@ void Weapon::UpdateProjectiles(float dt, sf::RenderWindow& window)
     for (auto it = projectiles.begin(); it != projectiles.end(); )
     {
         it->Update(dt);
-        if (it->IsOffScreen(window))
+
+        if (it->IsOffScreen(window) || it->toDelete)
         {
             it = projectiles.erase(it);
         }
@@ -42,8 +43,8 @@ void Weapon::Reload()
     munition = 10;
 }
 
-void Weapon::DrawProjectiles(sf::RenderWindow& window) const
+void Weapon::DrawProjectiles(sf::RenderWindow &window) const
 {
-    for (const auto& proj : projectiles)
+    for (const auto &proj : projectiles)
         proj.Draw(window);
 }

@@ -24,6 +24,8 @@ private:
     int wave;
     int playerLives;
     std::vector<Projectile> projectiles;
+    std::vector<Enemy> enemies;
+    int nbEnemies = 1;
 };
 
 #endif // GAME_H

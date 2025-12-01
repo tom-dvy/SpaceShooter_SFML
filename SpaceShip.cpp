@@ -58,6 +58,13 @@ void SpaceShip::Move(const sf::Vector2f& direction, sf::RectangleShape& shape, c
     shape.setPosition(pos);
 }
 
-void SpaceShip::IsDead()
+bool SpaceShip::IsDead() const
 {  
+    return life <= 0;
+    
+}
+
+void SpaceShip::MoveShape(sf::RectangleShape& shape, const sf::Vector2f& dir)
+{
+    shape.move(dir);
 }

@@ -13,7 +13,9 @@ public:
     void GetStats();
     void TakeDamage(int damage);
     void Move(const sf::Vector2f& direction, sf::RectangleShape& shape, const sf::RenderWindow& window);
-    void IsDead();
+    bool IsDead() const;
+    void MoveShape(sf::RectangleShape& shape, const sf::Vector2f& dir);
+
     Weapon* weapon;
 
 protected:
