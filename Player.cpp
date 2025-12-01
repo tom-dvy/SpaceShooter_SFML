@@ -15,6 +15,7 @@ Player::Player()
     SpaceShip::GetStats();
 
     weapon = new Weapon(1, 10, 0.5f);
+    //std::cout << "Player::Player this=" << this << " weapon=" << weapon << std::endl;
 }
 
 void Player::SetScore(int scorePlayer)

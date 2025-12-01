@@ -18,7 +18,7 @@ void SpaceShip::GetStats()
     std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon << std::endl;
 }
 
-void SpaceShip::TakeDamage(int damage, sf::RectangleShape& shape)
+void SpaceShip::TakeDamage(int damage)
 {
     life -= damage;
 	if (life < 0)

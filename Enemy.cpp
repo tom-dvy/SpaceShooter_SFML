@@ -10,6 +10,8 @@ Enemy::Enemy()
     shape.setFillColor(sf::Color::Red);
     shape.setOrigin(shape.getSize() / 2.f);
     shape.setPosition(500.f, 300.f);
+
+    weapon = new Weapon(1, 10, 0.5f);
 }
 
 void Enemy::AiMove(sf::RenderWindow& window)
@@ -37,6 +39,8 @@ void Enemy::AiMove(sf::RenderWindow& window)
 
 void Enemy::AiShoot()
 {
+    //weapon->Shoot(shape.getPosition(), sf::Vector2f(0.0f, 1.0f));
+    //weapon->Reload();
 }
 
 void Enemy::Display(sf::RenderWindow &window)
