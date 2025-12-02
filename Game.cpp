@@ -8,6 +8,7 @@ Game::Game()
     {
         enemies.push_back(Enemy());
     }
+    playerLives = 3;
 }
 
 Game::~Game()
@@ -47,6 +48,8 @@ void Game::Start()
         {
             enemy.AiMove(window);
             enemy.AiShoot();
+            if (enemy.GetWeapon())
+                enemy.GetWeapon()->UpdateProjectiles(deltaTime, window);
         }
 
         // Gestion des collisions et dégats
@@ -66,6 +69,31 @@ void Game::Start()
             }
         }
         
+        // Gestion des dégats et collisions sur le joueur
+        for (auto &enemy : enemies)
+        {
+            Weapon* ew = enemy.GetWeapon();
+            if (!ew) continue;
+            for (auto &eproj : ew->GetProjectiles())
+            {
+                if (eproj.GetShape().getGlobalBounds().intersects(player.GetBounds()))
+                {
+                    player.TakeDamage(1);
+                    eproj.toDelete = true;
+                }
+            }
+        }
+        
+        // Mort et Respawn Joueur
+        if (player.IsDead())
+        {
+            playerLives--;
+            if (playerLives == 0)
+            {
+                std::cout << "Game Over" << std::endl;
+                player.Respawn();
+            }
+        }
 
         // Supprimer les projectiles marqués
         if (player.GetWeapon())
@@ -81,9 +109,16 @@ void Game::Start()
         // Affichage de l'écran
         window.clear(sf::Color::Black);
 
-        // Dessiner projectiles ennemis et joueur
+        // Dessiner projectiles joueur
         if (player.GetWeapon())
             player.GetWeapon()->DrawProjectiles(window);
+        // Dessiner projectiles ennemis
+        for (auto &enemy : enemies)
+        {
+            if (enemy.GetWeapon())
+                enemy.GetWeapon()->DrawProjectiles(window);
+        }
+
         player.Display(window);
 
         for (auto &enemy : enemies)

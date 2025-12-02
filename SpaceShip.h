@@ -11,14 +11,15 @@ class SpaceShip
 public:
     SpaceShip();
     virtual ~SpaceShip() = default;
-    SpaceShip(SpaceShip&&) noexcept = default;
-    SpaceShip& operator=(SpaceShip&&) noexcept = default;
     void GetStats();
     void TakeDamage(int damage);
     void Move(const sf::Vector2f& direction, sf::RectangleShape& shape, const sf::RenderWindow& window);
     bool IsDead() const;
     void SetWeapon(Weapon* w) { weapon.reset(w); }
     Weapon* GetWeapon() const { return weapon.get(); }
+
+    SpaceShip(SpaceShip&&) noexcept = default;
+    SpaceShip& operator=(SpaceShip&&) noexcept = default;
 protected:
     std::unique_ptr<Weapon> weapon;
     int life;

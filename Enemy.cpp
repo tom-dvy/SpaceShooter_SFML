@@ -12,13 +12,13 @@ Enemy::Enemy()
     shape.setOrigin(shape.getSize() / 2.f);
     shape.setPosition(500.f, 300.f);
 
-    weapon = std::make_unique<Weapon>(1, 10, 0.5f);
+    weapon = std::make_unique<Weapon>(1, 100, 2.0f);
 }
 
-void Enemy::AiMove(sf::RenderWindow& window)
+void Enemy::AiMove(sf::RenderWindow &window)
 {
     sf::Vector2f movement(0.0f, 0.0f);
-    
+
     movement.x += speed * direction * (1.0f / 60.0f);
 
     Move(movement, shape, window);
@@ -40,8 +40,11 @@ void Enemy::AiMove(sf::RenderWindow& window)
 
 void Enemy::AiShoot()
 {
-    //weapon->Shoot(shape.getPosition(), sf::Vector2f(0.0f, 1.0f));
-    //weapon->Reload();
+    Weapon *w = GetWeapon();
+    if (w)
+    {
+        w->Shoot(shape.getPosition(), sf::Vector2f(0.0f, 1.0f));
+    }
 }
 
 void Enemy::Display(sf::RenderWindow &window)

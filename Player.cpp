@@ -75,7 +75,6 @@ void Player::GetShootInput()
         {
             w->Reload();
         }
-        
     }
     
 }
@@ -83,4 +82,16 @@ void Player::GetShootInput()
 void Player::Display(sf::RenderWindow &window)
 {
     window.draw(shape);
+}
+
+const sf::FloatRect Player::GetBounds() const
+{
+    return shape.getGlobalBounds();
+}
+
+void Player::Respawn()
+{
+    life = 3;
+    shape.setPosition(500.f, 700.f);
+    std::cout << "Player a respawn. Vies : " << life << std::endl;
 }

@@ -14,7 +14,9 @@ public:
     void SetScore(int score);
     void GetMoveInput(const sf::RenderWindow& window);
     void GetShootInput();
+    const sf::FloatRect GetBounds() const;
     void Display(sf::RenderWindow& window);
+    void Respawn();
 private:
     int score;
     sf::RectangleShape shape;

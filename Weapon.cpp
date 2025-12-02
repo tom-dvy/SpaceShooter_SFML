@@ -40,8 +40,20 @@ void Weapon::UpdateProjectiles(float dt, sf::RenderWindow& window)
 
 void Weapon::Reload()
 {
-    munition = 10;
-    std::cout << "Rechargement de 10 munitions" << std::endl;
+    float elapsed = shootClock.getElapsedTime().asSeconds();
+    if (elapsed < shootCooldown)
+        return;
+
+    shootClock.restart();
+    if (munition <= 0)
+    {
+        munition = 10;
+        std::cout << "Rechargement de "<< munition <<" munitions" << std::endl;
+    }
+    else
+    {
+        std::cout << "Vous avez encore "<< munition <<" munitions" << std::endl;
+    }
 }
 
 void Weapon::DrawProjectiles(sf::RenderWindow &window) const
