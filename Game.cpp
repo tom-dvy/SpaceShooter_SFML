@@ -22,6 +22,8 @@ void Game::Start()
     Player player;
     float deltaTime = 1.0f / 60.0f;
 
+    player.SetWeapon(new Weapon(1, 10, 0.5f));
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -37,8 +39,9 @@ void Game::Start()
         // Tirs du joueur
         player.GetShootInput();
 
-        // Mettre à jour la position des projectiles
-        player.weapon->UpdateProjectiles(deltaTime, window);
+        // Mettre à jour la position des projectiles du joueur
+        if (player.GetWeapon())
+            player.GetWeapon()->UpdateProjectiles(deltaTime, window);
 
         for (auto &enemy : enemies)
         {
@@ -47,20 +50,26 @@ void Game::Start()
         }
 
         // Gestion des collisions et dégats
-        for (auto &projectile : player.weapon->GetProjectiles())
+        Weapon* pw = player.GetWeapon();
+        if (pw)
         {
-            for (auto &enemy : enemies)
+            for (auto &projectile : pw->GetProjectiles())
             {
-                if (projectile.GetShape().getGlobalBounds().intersects(enemy.shape.getGlobalBounds()))
+                for (auto &enemy : enemies)
                 {
-                    enemy.TakeDamage(1);
-                    projectile.toDelete = true;
+                    if (projectile.GetShape().getGlobalBounds().intersects(enemy.shape.getGlobalBounds()))
+                    {
+                        enemy.TakeDamage(1);
+                        projectile.toDelete = true;
+                    }
                 }
             }
         }
+        
 
         // Supprimer les projectiles marqués
-        player.weapon->UpdateProjectiles(deltaTime, window);
+        if (player.GetWeapon())
+            player.GetWeapon()->UpdateProjectiles(deltaTime, window);
 
         // Mort d'un ennemi
         enemies.erase(
@@ -73,7 +82,8 @@ void Game::Start()
         window.clear(sf::Color::Black);
 
         // Dessiner projectiles ennemis et joueur
-        player.weapon->DrawProjectiles(window);
+        if (player.GetWeapon())
+            player.GetWeapon()->DrawProjectiles(window);
         player.Display(window);
 
         for (auto &enemy : enemies)

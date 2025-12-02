@@ -5,8 +5,9 @@
 #include <SFML/System/Clock.hpp>
 #include <vector>
 #include "Projectiles.h"
+#include "Gun.h"
 
-class Weapon
+class Weapon : public Gun
 {
 public:
     Weapon(int damage = 1, int munition = 10, float shootCooldown = 0.5f);

@@ -14,7 +14,6 @@ Player::Player()
 
     SpaceShip::GetStats();
 
-    weapon = new Weapon(1, 10, 0.5f);
     //std::cout << "Player::Player this=" << this << " weapon=" << weapon << std::endl;
 }
 
@@ -62,17 +61,19 @@ void Player::GetShootInput()
     // Gestion des tirs du joueur
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        if (weapon)
-        {            
-            weapon->Shoot(shape.getPosition(), sf::Vector2f(0.0f, -1.0f));
+        Weapon* w = GetWeapon();
+        if (w)
+        {
+            w->Shoot(shape.getPosition(), sf::Vector2f(0.0f, -1.0f));
         }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
     {
-        if (weapon)
+        Weapon* w = GetWeapon();
+        if (w)
         {
-            weapon->Reload();
+            w->Reload();
         }
         
     }

@@ -4,18 +4,9 @@ SpaceShip::SpaceShip() : life(3), speed(200), position(0.f, 0.f), weapon(nullptr
 {
 }
 
-SpaceShip::~SpaceShip()
-{
-    if (weapon) {
-        delete weapon;
-        weapon = nullptr;
-    }
-}
-
-
 void SpaceShip::GetStats()
 {
-    std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon << std::endl;
+    std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon.get() << std::endl;
 }
 
 void SpaceShip::TakeDamage(int damage)

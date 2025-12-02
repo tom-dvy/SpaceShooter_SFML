@@ -4,20 +4,23 @@
 #include <SFML/Graphics.hpp>
 #include "Weapon.h"
 #include <iostream>
+#include <memory>
 
 class SpaceShip
 {
 public:
     SpaceShip();
-    virtual ~SpaceShip();
+    virtual ~SpaceShip() = default;
+    SpaceShip(SpaceShip&&) noexcept = default;
+    SpaceShip& operator=(SpaceShip&&) noexcept = default;
     void GetStats();
     void TakeDamage(int damage);
     void Move(const sf::Vector2f& direction, sf::RectangleShape& shape, const sf::RenderWindow& window);
     bool IsDead() const;
-
-    Weapon* weapon;
-
+    void SetWeapon(Weapon* w) { weapon.reset(w); }
+    Weapon* GetWeapon() const { return weapon.get(); }
 protected:
+    std::unique_ptr<Weapon> weapon;
     int life;
     int speed;
     sf::Vector2f position;

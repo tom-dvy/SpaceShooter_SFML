@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <memory>
 
 Enemy::Enemy()
 {
@@ -11,7 +12,7 @@ Enemy::Enemy()
     shape.setOrigin(shape.getSize() / 2.f);
     shape.setPosition(500.f, 300.f);
 
-    weapon = new Weapon(1, 10, 0.5f);
+    weapon = std::make_unique<Weapon>(1, 10, 0.5f);
 }
 
 void Enemy::AiMove(sf::RenderWindow& window)
