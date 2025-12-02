@@ -16,8 +16,12 @@ public:
     ~Game();
     void Start();
     void NextLevel();
-    void Respawn();
     void IsGameOver();
+
+private:
+    void HandleEvents(sf::RenderWindow& window);
+    void Update(Player& player, float deltaTime, sf::RenderWindow& window, bool &isGameOver);
+    void Render(sf::RenderWindow& window, Player& player, bool isGameOver);
 
 private:
     int score;

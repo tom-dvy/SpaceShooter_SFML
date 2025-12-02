@@ -51,6 +51,7 @@ void SpaceShip::Move(const sf::Vector2f& direction, sf::RectangleShape& shape, c
 
 bool SpaceShip::IsDead() const
 {  
+
     if (life <= 0)   
     {
         std::cout << "Mort" << std::endl;
