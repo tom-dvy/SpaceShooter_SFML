@@ -11,7 +11,7 @@ public:
     Player();
     ~Player() override = default;
 
-    void SetScore(int score);
+    void SetScore(int score, sf::Font font, sf::RenderWindow& window);
     void GetMoveInput(const sf::RenderWindow& window);
     void GetShootInput();
     const sf::FloatRect GetBounds() const;

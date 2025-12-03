@@ -10,6 +10,7 @@ Game::Game(int numberOfEnemies) : nbEnemies(numberOfEnemies)
         enemies.push_back(Enemy());
     }
     playerLives = 3;
+    score = 0;
     
     // Police d'écriture
     if (!font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf"))
@@ -52,6 +53,7 @@ void Game::Start()
                 // Réinitialiser le jeu
                 isGameOver = false;
                 playerLives = 3;
+                score = 0;
                 player.Respawn();
                 enemies.clear();
                 for (int i = 0; i < nbEnemies; i++)
@@ -154,11 +156,15 @@ void Game::Update(Player& player, float deltaTime, sf::RenderWindow& window, boo
         player.GetWeapon()->UpdateProjectiles(deltaTime, window);
 
     // Mort et suppression d'un ennemi
-    enemies.erase(
-        std::remove_if(enemies.begin(), enemies.end(),
-                       [](const Enemy &e)
-                       { return e.IsDead(); }),
-        enemies.end());
+    for (const auto &enemy : enemies)
+    {
+        if (enemy.IsDead())
+        {
+            score++;
+        }
+    }
+    
+    enemies.erase(std::remove_if(enemies.begin(), enemies.end(),[](const Enemy &e){ return e.IsDead(); }), enemies.end());
 }
 
 void Game::Render(sf::RenderWindow& window, Player& player, bool isGameOver)
@@ -186,6 +192,8 @@ void Game::Render(sf::RenderWindow& window, Player& player, bool isGameOver)
         {
             enemy.Display(window);
         }
+
+        player.SetScore(score, font, window);
     }
     else
     {

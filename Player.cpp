@@ -14,14 +14,23 @@ Player::Player()
 
     SpaceShip::GetStats();
 
-    //std::cout << "Player::Player this=" << this << " weapon=" << weapon << std::endl;
+    // std::cout << "Player::Player this=" << this << " weapon=" << weapon << std::endl;
 }
 
-void Player::SetScore(int scorePlayer)
+void Player::SetScore(int scorePlayer, sf::Font font, sf::RenderWindow& window)
 {
     // Gestion du score du joueur
     score = scorePlayer;
-    std::cout << "Score : " << score << std::endl;
+
+    // Affichage du score
+    sf::Text scoreText("Score : " + std::to_string(score), font, 30);
+    scoreText.setFillColor(sf::Color::White);
+
+    scoreText.setPosition(
+        10.0f,
+        10.0f);
+
+    window.draw(scoreText);
 }
 
 void Player::GetMoveInput(const sf::RenderWindow &window)
@@ -61,7 +70,7 @@ void Player::GetShootInput()
     // Gestion des tirs du joueur
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        Weapon* w = GetWeapon();
+        Weapon *w = GetWeapon();
         if (w)
         {
             w->Shoot(shape.getPosition(), sf::Vector2f(0.0f, -1.0f));
@@ -70,13 +79,12 @@ void Player::GetShootInput()
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
     {
-        Weapon* w = GetWeapon();
+        Weapon *w = GetWeapon();
         if (w)
         {
             w->Reload();
         }
     }
-    
 }
 
 void Player::Display(sf::RenderWindow &window)
@@ -94,4 +102,9 @@ void Player::Respawn()
     life = 3;
     shape.setPosition(500.f, 700.f);
     std::cout << "Player a respawn. Vies : " << life << std::endl;
+
+    // Remettre le Player de la bonne opacité
+    sf::Color color = shape.getFillColor();
+    color.a = 250;
+    shape.setFillColor(color);
 }
