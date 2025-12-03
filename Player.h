@@ -17,6 +17,7 @@ public:
     const sf::FloatRect GetBounds() const;
     void Display(sf::RenderWindow& window);
     void Respawn();
+    sf::RectangleShape& GetShape() { return shape; }
 private:
     int score;
     sf::RectangleShape shape;

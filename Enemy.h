@@ -15,6 +15,8 @@ public:
     float direction = 1.0f;
 private:
     float speed;
+    float shootCooldown;
+    float shootTimer;
 };
 
 #endif // ENEMY_H

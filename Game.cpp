@@ -2,14 +2,14 @@
 #include "Game.h"
 #include <iostream>
 
-Game::Game()
+Game::Game(int numberOfEnemies) : nbEnemies(numberOfEnemies)
 {
     // Créer les ennemis
     for (int i = 0; i < nbEnemies; i++)
     {
         enemies.push_back(Enemy());
     }
-    playerLives = 1; // Il faut prendre 3 coups pour en perdre 1
+    playerLives = 3;
     
     // Police d'écriture
     if (!font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf"))
@@ -110,7 +110,7 @@ void Game::Update(Player& player, float deltaTime, sf::RenderWindow& window, boo
             {
                 if (projectile.GetShape().getGlobalBounds().intersects(enemy.shape.getGlobalBounds()))
                 {
-                    enemy.TakeDamage(1);
+                    enemy.TakeDamage(1, enemy.shape);
                     projectile.toDelete = true;
                 }
             }
@@ -126,7 +126,7 @@ void Game::Update(Player& player, float deltaTime, sf::RenderWindow& window, boo
         {
             if (eproj.GetShape().getGlobalBounds().intersects(player.GetBounds()))
             {
-                player.TakeDamage(1);
+                player.TakeDamage(1, player.GetShape());
                 eproj.toDelete = true;
             }
         }

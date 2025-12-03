@@ -12,7 +12,7 @@
 class Game
 {
 public:
-    Game();
+    Game(int numberOfEnemies = 5);
     ~Game();
     void Start();
     void NextLevel();
@@ -28,7 +28,7 @@ private:
     int playerLives;
     std::vector<Projectile> projectiles;
     std::vector<Enemy> enemies;
-    int nbEnemies = 1;
+    int nbEnemies;
     sf::Font font;
 };
 

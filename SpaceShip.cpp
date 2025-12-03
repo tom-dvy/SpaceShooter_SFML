@@ -9,13 +9,29 @@ void SpaceShip::GetStats()
     std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon.get() << std::endl;
 }
 
-void SpaceShip::TakeDamage(int damage)
+void SpaceShip::TakeDamage(int damage, sf::RectangleShape& shape)
 {
     life -= damage;
-	if (life < 0)
+    if (life < 0)
     {
         life = 0;
     }
+    
+    // shape transparente en fonction des vies restantes
+    sf::Color color = shape.getFillColor();
+    if (life == 2)
+    {
+        color.a = 200;  // 80% opacité (1 coup pris)
+    }
+    else if (life == 1)
+    {
+        color.a = 150;  // 60% opacité (2 coups pris)
+    }
+    else if (life == 0)
+    {
+        color.a = 100;  // 40% opacité (3 coups pris - mort)
+    }
+    shape.setFillColor(color);
 }
 
 void SpaceShip::Move(const sf::Vector2f& direction, sf::RectangleShape& shape, const sf::RenderWindow& window)
