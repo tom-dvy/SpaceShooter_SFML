@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <windows.h>
-#include <iostream>
+
 #include <vector>
 #include "Player.h"
 #include "Projectiles.h"
@@ -16,7 +16,6 @@ public:
     ~Game();
     void Start();
     void NextLevel();
-    void IsGameOver();
 
 private:
     void HandleEvents(sf::RenderWindow& window);
@@ -30,6 +29,7 @@ private:
     std::vector<Projectile> projectiles;
     std::vector<Enemy> enemies;
     int nbEnemies = 1;
+    sf::Font font;
 };
 
 #endif // GAME_H
