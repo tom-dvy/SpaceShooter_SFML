@@ -3,12 +3,13 @@
 
 #include "Weapon.h"
 
-class Gun
+class Gun : public Weapon
 {
 public:
     Gun();
-    ~Gun();
-    void Shoot(const sf::Vector2f& position, const sf::Vector2f& direction);
+    ~Gun() = default;
+    
+    void Shoot(const sf::Vector2f& position, const sf::Vector2f& direction) override;
 };
 
 #endif // GUN_H

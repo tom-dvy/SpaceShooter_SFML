@@ -14,6 +14,7 @@ public:
     void SetScore(int score, sf::Font font, sf::RenderWindow& window);
     void GetMoveInput(const sf::RenderWindow& window);
     void GetShootInput();
+    void HandleWeaponSwitch();
     const sf::FloatRect GetBounds() const;
     void Display(sf::RenderWindow& window);
     void Respawn();
@@ -22,5 +23,6 @@ private:
     int score;
     sf::RectangleShape shape;
     float speed;
+    int currentWeaponIndex;
 };
 #endif // PLAYER_H

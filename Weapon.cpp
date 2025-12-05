@@ -1,8 +1,8 @@
 #include "Weapon.h"
 #include <iostream>
 
-Weapon::Weapon(int dmg, int mun, float shootCooldown)
-    : damage(dmg), munition(mun), shootCooldown(shootCooldown)
+Weapon::Weapon(float dmg, int mun, float shootCooldown)
+    : damage(dmg), munition(mun), maxMunition(mun), shootCooldown(shootCooldown)
 {
 }
 
@@ -45,15 +45,9 @@ void Weapon::Reload()
         return;
 
     shootClock.restart();
-    if (munition <= 0)
-    {
-        munition = 10;
-        std::cout << "Rechargement de "<< munition <<" munitions" << std::endl;
-    }
-    else
-    {
-        std::cout << "Vous avez encore "<< munition <<" munitions" << std::endl;
-    }
+    
+    munition = maxMunition;
+    std::cout << "Rechargement de "<< munition <<" munitions" << std::endl;
 }
 
 void Weapon::DrawProjectiles(sf::RenderWindow &window) const

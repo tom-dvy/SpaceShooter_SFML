@@ -7,6 +7,7 @@
 Enemy::Enemy()
 {
     speed = 150.0f;
+    life = 10;
 
     shape.setSize(sf::Vector2f(50.0f, 30.0f));
     shape.setFillColor(sf::Color::Red);

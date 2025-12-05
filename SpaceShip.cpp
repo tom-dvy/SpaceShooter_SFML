@@ -1,6 +1,6 @@
 #include "SpaceShip.h"
 
-SpaceShip::SpaceShip() : life(3), speed(200), position(0.f, 0.f), weapon(nullptr)
+SpaceShip::SpaceShip() : position(0.f, 0.f), weapon(nullptr)
 {
 }
 
@@ -9,7 +9,7 @@ void SpaceShip::GetStats()
     std::cout << "Santé : " << life << "\n Vitesse : " << speed << "\n Arme : " << weapon.get() << std::endl;
 }
 
-void SpaceShip::TakeDamage(int damage, sf::RectangleShape& shape)
+void SpaceShip::TakeDamage(float damage, sf::RectangleShape& shape)
 {
     life -= damage;
     if (life < 0)
@@ -31,6 +31,11 @@ void SpaceShip::TakeDamage(int damage, sf::RectangleShape& shape)
     {
         color.a = 100;  // 40% opacité (3 coups pris - mort)
     }
+    /*for (life; life <= this->life; life--)
+    {
+        color.a -=50;
+    }*/
+    
     shape.setFillColor(color);
 }
 

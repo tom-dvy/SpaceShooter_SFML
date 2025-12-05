@@ -82,6 +82,9 @@ void Game::Update(Player& player, float deltaTime, sf::RenderWindow& window, boo
     // Mouvement du joueur
     player.GetMoveInput(window);
 
+    // Gestion du changement d'arme
+    player.HandleWeaponSwitch();
+
     // Tirs du joueur
     player.GetShootInput();
 
@@ -112,7 +115,7 @@ void Game::Update(Player& player, float deltaTime, sf::RenderWindow& window, boo
             {
                 if (projectile.GetShape().getGlobalBounds().intersects(enemy.shape.getGlobalBounds()))
                 {
-                    enemy.TakeDamage(1, enemy.shape);
+                    enemy.TakeDamage(playerWeapon->GetDamage(), enemy.shape);
                     projectile.toDelete = true;
                 }
             }

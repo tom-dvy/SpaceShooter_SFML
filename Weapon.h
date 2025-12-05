@@ -5,22 +5,27 @@
 #include <SFML/System/Clock.hpp>
 #include <vector>
 #include "Projectiles.h"
-#include "Gun.h"
 
-class Weapon : public Gun
+class Weapon
 {
 public:
-    Weapon(int damage = 1, int munition = 10, float shootCooldown = 0.5f);
+    Weapon(float damage = 1, int munition = 10, float shootCooldown = 0.5f);
+    virtual ~Weapon() = default;
 
-    void Shoot(const sf::Vector2f& position, const sf::Vector2f& direction);
+    virtual void Shoot(const sf::Vector2f& position, const sf::Vector2f& direction);
     void UpdateProjectiles(float dt, sf::RenderWindow& window);
     void Reload();
     void DrawProjectiles(sf::RenderWindow& window) const;
     std::vector<Projectile>& GetProjectiles() { return projectiles; };
+    int GetDamage() const { return (int)damage; }
+    int GetMunition() const { return munition; }
+    float GetShootCooldown() const { return shootCooldown; }
+    int GetMaxMunition() const { return maxMunition; }
 
-private:
-    int damage;
+protected:
+    float damage;
     int munition;
+    int maxMunition;
     std::vector<Projectile> projectiles;
     sf::Clock shootClock;
     float shootCooldown;

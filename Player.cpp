@@ -1,16 +1,22 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "MachineGun.h"
+#include "Gun.h"
 #include <iostream>
 
-Player::Player()
+Player::Player() : currentWeaponIndex(0)
 {
     score = 0;
     speed = 300.0f;
+    life = 3;
 
     shape.setSize(sf::Vector2f(50.f, 30.f));
     shape.setFillColor(sf::Color::Green);
     shape.setOrigin(shape.getSize() / 2.0f);
     shape.setPosition(500.f, 700.f);
+
+    // Initialiser avec le Gun par défaut
+    SetWeapon(new Weapon(1, 10, 0.5f));
 
     SpaceShip::GetStats();
 
@@ -83,6 +89,31 @@ void Player::GetShootInput()
         if (w)
         {
             w->Reload();
+        }
+    }
+}
+
+void Player::HandleWeaponSwitch()
+{
+    // Touche 1 = Gun basique
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    {
+        if (currentWeaponIndex != 0)
+        {
+            currentWeaponIndex = 0;
+            SetWeapon(new Gun());
+            std::cout << "Arme équipée : Gun (3 dégât, 10 munitions, 0.5s cadence de tir)" << std::endl;
+        }
+    }
+    
+    // Touche 2 = Mitrailleuse
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+    {
+        if (currentWeaponIndex != 1)
+        {
+            currentWeaponIndex = 1;
+            SetWeapon(new MachineGun());
+            std::cout << "Arme équipée : MachineGun (1 dégâts, 50 munitions, 0.1s cadence de tir)" << std::endl;
         }
     }
 }
